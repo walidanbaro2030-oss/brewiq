@@ -425,14 +425,14 @@ document.querySelectorAll('.ni').forEach(n=>{
 
 buildTopBars();buildTOD('tod1');buildSentSummary('snt1');
 loadReviewsFromLocal();
-buildReviews();buildSent2();buildPredList();buildProducts();buildStocks();
+buildReviews();
+buildSent2();
+  buildPredList();buildProducts();buildStocks();
 initCharts();
-</script>
-// 🔗 LIAISON WITH FEEDBACK (LOCALSTORAGE)
 function loadReviewsFromLocal(){
   const data = JSON.parse(localStorage.getItem("reviews")) || [];
 
-  if(data.length === 0) return; // إلا ما كايناش data نخلي القديم
+  if(data.length === 0) return;
 
   const newReviews = data.map(r=>({
     t: r.review,
@@ -442,6 +442,6 @@ function loadReviewsFromLocal(){
     kn: []
   }));
 
-  // ندمج القديم + الجديد
   D.reviews = [...newReviews, ...D.reviews];
 }
+  </script>
