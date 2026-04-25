@@ -1,0 +1,431 @@
+
+<h2 class="sr-only">BrewIQ — Plateforme complète de gestion intelligente de ventes de café, avec dashboard, analyses IA, sentiment NLP et prédictions 2025.</h2>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --br:#C8773E;--gold:#D4A853;--pos:#3B6D11;--neg:#A32D2D;--neu:#888780;
+  --c1:#1C1008;--sw:188px;
+}
+#app{display:flex;height:660px;border-radius:12px;overflow:hidden;background:var(--color-background-tertiary);font-family:'Syne',sans-serif;}
+.sb{width:var(--sw);background:var(--c1);display:flex;flex-direction:column;flex-shrink:0;}
+.sb-head{padding:16px 13px 13px;border-bottom:0.5px solid rgba(255,255,255,0.07);}
+.sb-ic{width:32px;height:32px;background:var(--br);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:6px;}
+.sb-n{font-size:13px;font-weight:700;color:#fff;}
+.sb-t{font-size:9px;color:rgba(255,255,255,0.28);font-family:'DM Mono',monospace;}
+.sb-nav{flex:1;padding:8px 0;}
+.sb-lbl{font-size:8px;color:rgba(255,255,255,0.2);padding:10px 13px 3px;letter-spacing:2px;font-family:'DM Mono',monospace;}
+.ni{display:flex;align-items:center;gap:8px;padding:8px 13px;font-size:12px;color:rgba(255,255,255,0.42);cursor:pointer;border-left:2px solid transparent;transition:all 0.12s;user-select:none;}
+.ni:hover{color:rgba(255,255,255,0.78);background:rgba(255,255,255,0.03);}
+.ni.on{color:var(--br);border-left-color:var(--br);background:rgba(200,119,62,0.08);}
+.sb-ft{padding:10px 13px;border-top:0.5px solid rgba(255,255,255,0.07);}
+.ua{display:flex;align-items:center;gap:7px;}
+.av{width:26px;height:26px;border-radius:50%;background:#6B3A2A;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#F5E6D3;}
+.un{font-size:11px;color:rgba(255,255,255,0.55);}
+.ur{font-size:9px;color:rgba(255,255,255,0.25);font-family:'DM Mono',monospace;}
+.main{flex:1;overflow-y:auto;display:flex;flex-direction:column;min-width:0;}
+.tb{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);flex-shrink:0;}
+.pg-ti{font-size:14px;font-weight:700;color:var(--color-text-primary);}
+.pg-su{font-size:9px;color:var(--color-text-secondary);margin-top:1px;font-family:'DM Mono',monospace;}
+.tb-r{display:flex;align-items:center;gap:6px;}
+.bge{font-size:9px;padding:2px 7px;border-radius:20px;font-family:'DM Mono',monospace;}
+.bge-g{background:rgba(29,158,117,0.1);color:#0F6E56;border:0.5px solid rgba(29,158,117,0.25);}
+.bge-o{background:rgba(200,119,62,0.1);color:#854F0B;border:0.5px solid rgba(200,119,62,0.25);}
+.ct{padding:14px 16px;flex:1;}
+.pg{display:none;}
+.pg.on{display:block;}
+.krow{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px;}
+.kc{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:9px;padding:11px 13px;}
+.kl{font-size:9px;color:var(--color-text-secondary);letter-spacing:0.6px;margin-bottom:4px;font-family:'DM Mono',monospace;}
+.kv{font-size:20px;font-weight:800;color:var(--color-text-primary);line-height:1;}
+.ks{font-size:10px;margin-top:3px;}
+.ku{color:var(--pos);}
+.kd{color:var(--neg);}
+.r2{display:grid;grid-template-columns:1.5fr 1fr;gap:9px;margin-bottom:10px;}
+.r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;}
+.cd{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:9px;padding:12px;}
+.ct2{font-size:11px;font-weight:700;color:var(--color-text-primary);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;}
+.tg{font-size:9px;font-family:'DM Mono',monospace;color:var(--color-text-secondary);padding:2px 6px;background:var(--color-background-secondary);border-radius:4px;font-weight:400;}
+.ai{background:rgba(200,119,62,0.05);border:0.5px solid rgba(200,119,62,0.18);border-radius:7px;padding:9px 11px;margin-bottom:10px;}
+.ai-l{font-size:8px;font-family:'DM Mono',monospace;color:var(--br);margin-bottom:3px;letter-spacing:1px;}
+.ai-t{font-size:11px;color:var(--color-text-primary);line-height:1.55;}
+.br2{display:flex;align-items:center;gap:7px;margin-bottom:6px;}
+.bn{font-size:10px;color:var(--color-text-secondary);width:105px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.bt{flex:1;height:5px;background:var(--color-background-secondary);border-radius:3px;overflow:hidden;}
+.bf{height:100%;border-radius:3px;}
+.bv{font-size:9px;font-family:'DM Mono',monospace;color:var(--color-text-secondary);width:40px;text-align:right;flex-shrink:0;}
+.rv{display:flex;flex-direction:column;gap:7px;max-height:290px;overflow-y:auto;}
+.rc{background:var(--color-background-secondary);border-radius:7px;padding:8px 10px;}
+.rh{display:flex;align-items:center;gap:7px;margin-bottom:3px;}
+.ri{font-size:9px;font-family:'DM Mono',monospace;color:var(--color-text-secondary);}
+.rt{font-size:11px;color:var(--color-text-primary);line-height:1.5;font-style:italic;}
+.rk{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px;}
+.kw{font-size:9px;padding:1px 5px;border-radius:3px;}
+.kp{background:rgba(59,109,17,0.1);color:#27500A;}
+.kn{background:rgba(163,45,45,0.1);color:#791F1F;}
+.pl{font-size:9px;padding:2px 7px;border-radius:10px;font-weight:500;}
+.pp{background:rgba(59,109,17,0.12);color:#27500A;}
+.pn{background:rgba(95,94,90,0.12);color:#444441;}
+.pg2{background:rgba(163,45,45,0.12);color:#791F1F;}
+.rs{font-size:10px;font-family:'DM Mono',monospace;color:var(--color-text-secondary);margin-left:auto;}
+.inp{width:100%;padding:7px 9px;border:0.5px solid var(--color-border-secondary);border-radius:6px;background:var(--color-background-secondary);color:var(--color-text-primary);font-family:inherit;font-size:12px;resize:none;margin-top:4px;}
+.btn{padding:6px 13px;background:var(--br);color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:7px;}
+.btn:disabled{opacity:0.55;cursor:not-allowed;}
+.lv{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.sc{font-size:10px;font-family:'DM Mono',monospace;color:var(--color-text-secondary);}
+.prow{display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:0.5px solid var(--color-border-tertiary);}
+.prow:last-child{border-bottom:none;}
+.pm{font-size:12px;font-weight:500;color:var(--color-text-primary);width:72px;flex-shrink:0;}
+.pt{flex:1;height:4px;background:var(--color-background-secondary);border-radius:2px;overflow:hidden;}
+.pf{height:100%;background:var(--br);border-radius:2px;}
+.pr{font-size:11px;font-family:'DM Mono',monospace;color:var(--br);width:50px;text-align:right;flex-shrink:0;}
+.pup{color:var(--pos);}
+.pdn{color:var(--neg);}
+.pg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
+.pc{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:9px;padding:11px;cursor:pointer;transition:border-color 0.12s;}
+.pc:hover{border-color:var(--br);}
+.pic{font-size:22px;margin-bottom:5px;}
+.pnm{font-size:11px;font-weight:700;color:var(--color-text-primary);margin-bottom:3px;}
+.prv{font-size:18px;font-weight:800;color:var(--color-text-primary);}
+.pct{font-size:9px;color:var(--color-text-secondary);font-family:'DM Mono',monospace;}
+.pav{font-size:9px;color:var(--br);margin-top:1px;font-family:'DM Mono',monospace;}
+.sk-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary);}
+.sk-row:last-child{border-bottom:none;}
+.sk-n{flex:1;font-size:12px;color:var(--color-text-primary);}
+.sk-b{width:75px;height:4px;background:var(--color-background-secondary);border-radius:2px;overflow:hidden;}
+.sk-f{height:100%;border-radius:2px;}
+.sk-ok{background:var(--pos);}
+.sk-wn{background:#BA7517;}
+.sk-lw{background:var(--neg);}
+.sk-p{font-size:10px;font-family:'DM Mono',monospace;color:var(--color-text-secondary);width:30px;text-align:right;}
+.sr-row{display:flex;align-items:center;gap:7px;margin-bottom:5px;}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.sr-n{font-size:11px;color:var(--color-text-secondary);flex:1;}
+.sr-v{font-size:11px;font-family:'DM Mono',monospace;color:var(--color-text-primary);}
+.stat-bar{flex:1;height:4px;background:var(--color-background-secondary);border-radius:2px;overflow:hidden;}
+.tod-r{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
+.tod-i{font-size:16px;width:22px;text-align:center;}
+.tod-h{display:flex;justify-content:space-between;font-size:11px;color:var(--color-text-primary);margin-bottom:2px;}
+.tod-b{height:4px;background:var(--color-background-secondary);border-radius:2px;overflow:hidden;}
+.xs{font-size:10px;color:var(--color-text-secondary);}
+.cst{text-align:center;padding:12px 0;}
+.cbn{font-size:30px;font-weight:800;color:var(--br);}
+.cbl{font-size:11px;color:var(--color-text-secondary);}
+.ch{display:inline-block;font-size:9px;padding:2px 8px;border-radius:10px;margin-top:6px;background:rgba(59,109,17,0.1);color:#27500A;}
+</style>
+
+<div id="app">
+ <div class="sb">
+  <div class="sb-head">
+   <div class="sb-ic">☕</div>
+   <div class="sb-n">BrewIQ</div>
+   <div class="sb-t">AI Coffee Intelligence</div>
+  </div>
+  <nav class="sb-nav">
+   <div class="sb-lbl">ANALYTICS</div>
+   <div class="ni on" data-pg="dash">◈ Dashboard</div>
+   <div class="ni" data-pg="analytics">◉ Ventes & IA</div>
+   <div class="ni" data-pg="sentiment">◎ Sentiment NLP</div>
+   <div class="ni" data-pg="predict">◌ Prédictions</div>
+   <div class="sb-lbl">GESTION</div>
+   <div class="ni" data-pg="products">▣ Produits</div>
+   <div class="ni" data-pg="stocks">▤ Stocks</div>
+  </nav>
+  <div class="sb-ft">
+   <div class="ua">
+    <div class="av">AD</div>
+    <div><div class="un">Admin</div><div class="ur">manager · JWT</div></div>
+   </div>
+  </div>
+ </div>
+
+ <div class="main">
+  <div class="tb">
+   <div><div class="pg-ti" id="ti">Dashboard Overview</div><div class="pg-su" id="su">3 547 transactions · Jan–Déc 2024</div></div>
+   <div class="tb-r"><span class="bge bge-g">● LIVE</span><span class="bge bge-o">AI POWERED</span></div>
+  </div>
+  <div class="ct">
+
+   <!-- DASHBOARD -->
+   <div class="pg on" id="pg-dash">
+    <div class="krow">
+     <div class="kc"><div class="kl">REVENU TOTAL</div><div class="kv">112 K€</div><div class="ks ku">↑ +8.3% vs prévu</div></div>
+     <div class="kc"><div class="kl">TRANSACTIONS</div><div class="kv">3 547</div><div class="ks ku">↑ Actif 12 mois</div></div>
+     <div class="kc"><div class="kl">PANIER MOYEN</div><div class="kv">31.6€</div><div class="ks ku">↑ +2.1€ vs moy.</div></div>
+     <div class="kc"><div class="kl">SATISFACTION IA</div><div class="kv">78%</div><div class="ks ku">↑ Sentiment pos.</div></div>
+    </div>
+    <div class="ai"><div class="ai-l">▶ INSIGHT IA</div><div class="ai-t">Le <strong>Latte</strong> génère le CA le plus élevé (26 875€). L'<strong>Americano with Milk</strong> a le plus de commandes (809). Le <strong>Mardi</strong> est le jour le plus rentable (18 168€). Pic de ventes entre <strong>10h–11h</strong>.</div></div>
+    <div class="r2">
+     <div class="cd"><div class="ct2">Revenu mensuel 2024 <span class="tg">€</span></div><div style="position:relative;height:160px;"><canvas id="cM" role="img" aria-label="Revenu mensuel 2024">Jan 6K, Fév 13K, Mar 16K, Avr 6K, Mai 8K, Jun 8K, Jul 7K, Aoû 8K, Sep 10K, Oct 14K, Nov 9K, Déc 8K.</canvas></div></div>
+     <div class="cd">
+      <div class="ct2">Top produits <span class="tg">par CA</span></div>
+      <div id="tb1"></div>
+     </div>
+    </div>
+    <div class="r3">
+     <div class="cd"><div class="ct2">Par heure</div><div style="position:relative;height:110px;"><canvas id="cH" role="img" aria-label="Ventes par heure">Pic entre 10h et 11h avec 328 commandes.</canvas></div></div>
+     <div class="cd"><div class="ct2">Moment journée</div><div id="tod1"></div></div>
+     <div class="cd"><div class="ct2">Sentiment <span class="tg">NLP</span></div><div id="snt1"></div></div>
+    </div>
+   </div>
+
+   <!-- ANALYTICS -->
+   <div class="pg" id="pg-analytics">
+    <div class="ai"><div class="ai-l">▶ ANALYSE IA</div><div class="ai-t">Le <strong>Mardi</strong> est le jour le plus rentable (18 168€). La <strong>Nuit</strong> et l'<strong>Après-midi</strong> sont équivalentes (~38K€ chacune). <strong>100%</strong> des paiements sont par carte.</div></div>
+    <div class="r2" style="margin-bottom:10px;">
+     <div class="cd"><div class="ct2">CA par produit <span class="tg">complet</span></div><div style="position:relative;height:195px;"><canvas id="cP" role="img" aria-label="CA par produit">Latte 26K, Americano Milk 24K, Cappuccino 17K, Americano 14K.</canvas></div></div>
+     <div class="cd"><div class="ct2">Ventes par jour semaine</div><div style="position:relative;height:195px;"><canvas id="cW" role="img" aria-label="Ventes par jour">Mardi le plus élevé avec 18 168€.</canvas></div></div>
+    </div>
+    <div class="cd"><div class="ct2">Distribution horaire <span class="tg">Peak Detection IA</span></div><div style="position:relative;height:120px;"><canvas id="cH2" role="img" aria-label="Distribution horaire complète">Flux de 6h à 22h avec pic à 10h.</canvas></div></div>
+   </div>
+
+   <!-- SENTIMENT -->
+   <div class="pg" id="pg-sentiment">
+    <div class="ai"><div class="ai-l">▶ NLP FR · Analyse lexicale</div><div class="ai-t"><strong>78% d'avis positifs</strong> sur 3 547 transactions. Mots négatifs récurrents : <em>cher, coûteux, élevé</em>. Mots positifs : <em>excellent, satisfait, top, bon</em>. Score moyen : <strong>+0.24</strong>.</div></div>
+    <div style="margin-bottom:10px;" class="cd">
+     <div class="ct2">Analyser un avis en temps réel <span class="tg">NLP · FR</span></div>
+     <textarea class="inp" id="rv-inp" placeholder="Tapez un avis en français… ex: Café excellent mais un peu cher." rows="2"></textarea>
+     <button class="btn" id="rv-btn" onclick="analyseReview()">▶ Analyser</button>
+     <div class="lv" id="rv-res" style="display:none;"></div>
+    </div>
+    <div class="r2">
+     <div class="cd"><div class="ct2">Avis clients analysés <span class="tg">12 uniques</span></div><div class="rv" id="rvList"></div></div>
+     <div class="cd">
+      <div class="ct2">Distribution sentiment</div>
+      <div style="position:relative;height:160px;"><canvas id="cS" role="img" aria-label="Répartition sentiment">9 positifs 75%, 2 neutres 17%, 1 négatif 8%.</canvas></div>
+      <div style="margin-top:12px;" id="snt2"></div>
+     </div>
+    </div>
+   </div>
+
+   <!-- PRÉDICTIONS -->
+   <div class="pg" id="pg-predict">
+    <div class="ai"><div class="ai-l">▶ MODÈLE IA · Random Forest + Saisonnalité</div><div class="ai-t">Croissance prédite de <strong>+8%</strong> pour 2025. Pic saisonnier en <strong>Mars</strong> et <strong>Octobre</strong>. Prévisions basées sur 3 547 transactions historiques. Confiance moyenne : <strong>80%</strong>.</div></div>
+    <div class="cd" style="margin-bottom:10px;">
+     <div class="ct2">Prévision CA mensuel 2025 vs 2024 <span class="tg">RF Model</span></div>
+     <div style="position:relative;height:200px;"><canvas id="cPred" role="img" aria-label="Prévisions 2025 vs 2024">2025 prévu en hausse de 8% par rapport à 2024.</canvas></div>
+    </div>
+    <div class="r2">
+     <div class="cd">
+      <div class="ct2">Détail prévisions H1 2025</div>
+      <div id="predList"></div>
+     </div>
+     <div class="cd">
+      <div class="ct2">Demande Q1 2025 par produit</div>
+      <div style="position:relative;height:200px;"><canvas id="cPr2" role="img" aria-label="Demande prévue par produit">Latte et Americano Milk en tête.</canvas></div>
+     </div>
+    </div>
+   </div>
+
+   <!-- PRODUITS -->
+   <div class="pg" id="pg-products">
+    <div class="ai"><div class="ai-l">▶ PRODUCT INTELLIGENCE</div><div class="ai-t">8 produits actifs. L'<strong>Espresso</strong> est le moins vendu (129 ventes, 20.85€ moy). Recommandation IA : booster le <strong>Cappuccino</strong> en matinée (pic 9h–11h) et le <strong>Latte</strong> en soirée.</div></div>
+    <div class="pg-grid" id="pGrid"></div>
+   </div>
+
+   <!-- STOCKS -->
+   <div class="pg" id="pg-stocks">
+    <div class="ai"><div class="ai-l">▶ STOCK INTELLIGENCE · Vélocité de vente</div><div class="ai-t">L'<strong>Americano with Milk</strong> (809 ventes) et le <strong>Latte</strong> (757 ventes) nécessitent un réapprovisionnement prioritaire. L'<strong>Espresso</strong> est en surplus relatif.</div></div>
+    <div class="r2">
+     <div class="cd"><div class="ct2">Niveaux de stock estimés</div><div id="skList"></div></div>
+     <div class="cd"><div class="ct2">Vélocité de vente (unités/mois) <span class="tg">Moyenne</span></div><div style="position:relative;height:200px;"><canvas id="cVel" role="img" aria-label="Vélocité de vente par produit">Americano Milk le plus rapide.</canvas></div></div>
+    </div>
+   </div>
+
+  </div>
+ </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const D={
+ months:['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'],
+ mRev:[6399,13215,15892,5720,8164,7618,6916,7614,9989,13891,8591,8238],
+ pred:[8900,10200,14500,6800,9200,8500,9800,11200,13400,16000,10500,9100],
+ prods:['Latte','Am. Milk','Cappuccino','Americano','Hot Choc.','Cocoa','Cortado','Espresso'],
+ prodsF:['Latte','Americano with Milk','Cappuccino','Americano','Hot Chocolate','Cocoa','Cortado','Espresso'],
+ pRev:[26875,24751,17439,14650,9933,8521,7385,2690],
+ pCnt:[757,809,486,564,276,239,287,129],
+ pAvg:[35.50,30.59,35.88,25.98,35.99,35.65,25.73,20.85],
+ pIc:['☕','🥛','🫖','⚡','🍫','🍵','🥛','⚙️'],
+ wd:['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'],
+ wRev:[17363,18168,15750,16091,16803,14734,13336],
+ hrs:[6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22],
+ hCnt:[5,88,235,242,328,283,241,225,225,236,278,237,218,229,169,195,113],
+ tod:[{n:'Matin',i:'🌅',v:35929,c:1181},{n:'Après-midi',i:'☀️',v:38130,c:1205},{n:'Nuit',i:'🌙',v:38186,c:1161}],
+ reviews:[
+  {t:'Bon café mais pas très abordable.',s:'neutre',sc:-0.05,kp:[],kn:['abordable']},
+  {t:'Café excellent mais prix élevé.',s:'neutre',sc:0.05,kp:['excellent'],kn:['élevé']},
+  {t:'Un peu cher mais bonne qualité.',s:'neutre',sc:0.05,kp:['bonne'],kn:['cher']},
+  {t:'Très bon rapport qualité/prix ☕',s:'positif',sc:0.40,kp:['très bon','qualité'],kn:[]},
+  {t:'Rien à redire, bon équilibre qualité/prix.',s:'positif',sc:0.35,kp:['bon','qualité'],kn:[]},
+  {t:'Qualité top mais trop coûteux.',s:'négatif',sc:-0.20,kp:['top'],kn:['coûteux']},
+  {t:'Café correct et satisfaisant.',s:'positif',sc:0.30,kp:['satisfaisant'],kn:[]},
+  {t:'Bon goût, prix raisonnable.',s:'positif',sc:0.35,kp:['bon','raisonnable'],kn:[]},
+  {t:'Super satisfait pour le prix payé.',s:'positif',sc:0.45,kp:['super','satisfait'],kn:[]},
+  {t:'Excellent café à petit prix.',s:'positif',sc:0.55,kp:['excellent','petit prix'],kn:[]},
+  {t:'Pas cher et très bon café !',s:'positif',sc:0.60,kp:['pas cher','très bon'],kn:[]},
+  {t:'Expérience agréable.',s:'positif',sc:0.35,kp:['agréable'],kn:[]}
+ ]
+};
+
+const BR='#C8773E',GOLD='#D4A853',POS='#3B6D11',NEG='#A32D2D',NEU='#888780';
+const GR='rgba(128,128,128,0.12)',TC='rgba(128,128,128,0.65)';
+const fK=(v)=>v>=1000?(v/1000).toFixed(1)+'K€':v+'€';
+const fM=(v)=>Math.round(v);
+
+const defO=(hor)=>({
+ responsive:true,maintainAspectRatio:false,
+ plugins:{legend:{display:false}},
+ scales:hor?{
+  x:{grid:{color:GR},ticks:{color:TC,font:{size:9}}},
+  y:{grid:{display:false},ticks:{color:TC,font:{size:10}}}
+ }:{
+  x:{grid:{color:GR},ticks:{color:TC,font:{size:9},maxRotation:0}},
+  y:{grid:{color:GR},ticks:{color:TC,font:{size:9},callback:v=>v>=1000?(v/1000).toFixed(0)+'K':v}}
+ }
+});
+
+function mkChart(id,type,data,opts){
+ const el=document.getElementById(id);
+ if(!el)return;
+ new Chart(el,{type,data,options:opts});
+}
+
+function buildTopBars(){
+ const el=document.getElementById('tb1');
+ const mx=D.pRev[0];
+ el.innerHTML=D.prods.map((p,i)=>{
+  const pct=Math.round(D.pRev[i]/mx*100);
+  const col=i<2?BR:GOLD;
+  return`<div class="br2"><span class="bn">${p}</span><div class="bt"><div class="bf" style="width:${pct}%;background:${col};"></div></div><span class="bv">${fK(D.pRev[i])}</span></div>`;
+ }).join('');
+}
+
+function buildTOD(id){
+ const el=document.getElementById(id);
+ if(!el)return;
+ const mx=Math.max(...D.tod.map(t=>t.v));
+ el.innerHTML=D.tod.map(t=>{
+  const pct=Math.round(t.v/mx*100);
+  return`<div class="tod-r"><span class="tod-i">${t.i}</span><div style="flex:1;"><div class="tod-h"><span>${t.n}</span><span>${fK(t.v)}</span></div><div class="tod-b"><div style="width:${pct}%;height:4px;background:${BR};border-radius:2px;"></div></div></div></div>`;
+ }).join('');
+}
+
+function buildSentSummary(id){
+ const el=document.getElementById(id);
+ if(!el)return;
+ el.innerHTML=`<div style="text-align:center;padding:8px 0;"><div style="font-size:24px;font-weight:800;color:${POS};">78%</div><div class="xs">Avis positifs</div></div><div class="sr-row"><span class="dot" style="background:${POS};"></span><span class="sr-n">Positif</span><span class="sr-v">9</span></div><div class="sr-row"><span class="dot" style="background:${NEU};"></span><span class="sr-n">Neutre</span><span class="sr-v">2</span></div><div class="sr-row"><span class="dot" style="background:${NEG};"></span><span class="sr-n">Négatif</span><span class="sr-v">1</span></div>`;
+}
+
+function buildReviews(){
+ const el=document.getElementById('rvList');
+ if(!el)return;
+ const pc={positif:'pp',neutre:'pn',négatif:'pg2'};
+ el.innerHTML=D.reviews.map((r,i)=>{
+  const kps=r.kp.map(k=>`<span class="kw kp">+${k}</span>`).join('');
+  const kns=r.kn.map(k=>`<span class="kw kn">-${k}</span>`).join('');
+  return`<div class="rc"><div class="rh"><span class="ri">#${i+1}</span><span class="pl ${pc[r.s]}">${r.s}</span><span class="rs">${r.sc>0?'+':''}${r.sc}</span></div><div class="rt">"${r.t}"</div><div class="rk">${kps}${kns}</div></div>`;
+ }).join('');
+}
+
+function buildSent2(){
+ const el=document.getElementById('snt2');
+ if(!el)return;
+ const data=[{n:'Positif',v:9,pct:75,c:POS},{n:'Neutre',v:2,pct:17,c:NEU},{n:'Négatif',v:1,pct:8,c:NEG}];
+ el.innerHTML=data.map(d=>`<div class="sr-row"><span class="dot" style="background:${d.c};"></span><span class="sr-n">${d.n}</span><div class="stat-bar"><div style="width:${d.pct}%;height:4px;background:${d.c};border-radius:2px;"></div></div><span class="sr-v">${d.v} (${d.pct}%)</span></div>`).join('');
+}
+
+function buildPredList(){
+ const el=document.getElementById('predList');
+ if(!el)return;
+ const mn=['Janvier','Février','Mars','Avril','Mai','Juin'];
+ const ref=[6399,13215,15892,5720,8164,7618];
+ const pv=[8900,10200,14500,6800,9200,8500];
+ el.innerHTML=mn.map((m,i)=>{
+  const d=pv[i]-ref[i];
+  const up=d>=0;
+  const pct=Math.round(pv[i]/16000*100);
+  return`<div class="prow"><span class="pm">${m}</span><div class="pt"><div class="pf" style="width:${pct}%;"></div></div><span class="pr">${fK(pv[i])}</span><span style="font-size:10px;width:44px;text-align:right;flex-shrink:0;color:${up?POS:NEG};">${up?'↑':'↓'} ${Math.abs(d).toFixed(0)}€</span></div>`;
+ }).join('');
+}
+
+function buildProducts(){
+ const el=document.getElementById('pGrid');
+ if(!el)return;
+ el.innerHTML=D.prodsF.map((p,i)=>`<div class="pc"><div class="pic">${D.pIc[i]}</div><div class="pnm">${p}</div><div class="prv">${fK(D.pRev[i])}</div><div class="pct">${D.pCnt[i]} ventes</div><div class="pav">moy. ${D.pAvg[i].toFixed(2)}€</div></div>`).join('');
+}
+
+function buildStocks(){
+ const el=document.getElementById('skList');
+ if(!el)return;
+ const mx=Math.max(...D.pCnt);
+ el.innerHTML=D.prodsF.map((p,i)=>{
+  const vel=D.pCnt[i];
+  const sp=Math.max(18,100-Math.round(vel/mx*78));
+  const cl=sp>60?'sk-ok':sp>35?'sk-wn':'sk-lw';
+  return`<div class="sk-row"><span class="sk-n">${p}</span><div class="sk-b"><div class="sk-f ${cl}" style="width:${sp}%;"></div></div><span class="sk-p">${sp}%</span></div>`;
+ }).join('');
+}
+
+const SENT_RULES={
+ pos:['excellent','très bon','super','satisfait','agréable','top','raisonnable','bon','qualité','petit prix','pas cher'],
+ neg:['cher','coûteux','élevé','abordable'],
+ flip:{'pas cher':0.5,'petit prix':0.5,'trop coûteux':-0.4,'prix élevé':-0.2,'pas très abordable':-0.25}
+};
+
+function analyseReview(){
+ const txt=document.getElementById('rv-inp').value.trim();
+ if(!txt)return;
+ const t=txt.toLowerCase();
+ let sc=0;const kws=[];
+ for(const[p,v] of Object.entries(SENT_RULES.flip)){if(t.includes(p)){sc+=v;kws.push(v>0?`+${p}`:`-${p}`);}}
+ SENT_RULES.pos.forEach(k=>{if(t.includes(k)&&!kws.some(w=>w.includes(k))){sc+=0.2;kws.push(`+${k}`);}});
+ SENT_RULES.neg.forEach(k=>{if(t.includes(k)&&!kws.some(w=>w.includes(k))){sc-=0.15;kws.push(`-${k}`);}});
+ sc=Math.max(-1,Math.min(1,sc));
+ const lbl=sc>0.1?'positif':sc<-0.1?'négatif':'neutre';
+ const pc={positif:'pp',neutre:'pn',négatif:'pg2'}[lbl];
+ const conf=Math.min(95,Math.round(50+Math.abs(sc)*35+kws.length*2));
+ const res=document.getElementById('rv-res');
+ res.style.display='flex';
+ res.innerHTML=`<span class="pl ${pc}">${lbl}</span><span class="sc">Score: ${sc>0?'+':''}${sc.toFixed(2)}</span><span class="sc">Conf: ${conf}%</span><span class="sc" style="font-style:italic;color:var(--color-text-secondary);">${kws.join(', ')||'—'}</span>`;
+}
+
+function initCharts(){
+ mkChart('cM','bar',{labels:D.months,datasets:[{data:D.mRev,backgroundColor:D.mRev.map(v=>v===Math.max(...D.mRev)?BR:GOLD+'66'),borderRadius:3}]},defO());
+ mkChart('cH','line',{labels:D.hrs,datasets:[{data:D.hCnt,borderColor:BR,backgroundColor:BR+'22',borderWidth:1.5,pointRadius:0,fill:true,tension:0.4}]},defO());
+ mkChart('cP','bar',{labels:D.prods,datasets:[{data:D.pRev,backgroundColor:[BR,GOLD,'#8B4513','#A0522D','#6B3A2A',BR+'88',GOLD+'88','#8B451388'],borderRadius:3}]},{...defO(true),indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:GR},ticks:{color:TC,font:{size:9},callback:v=>v>=1000?(v/1000).toFixed(0)+'K€':v}},y:{grid:{display:false},ticks:{color:TC,font:{size:10}}}}});
+ mkChart('cW','bar',{labels:D.wd,datasets:[{data:D.wRev,backgroundColor:D.wRev.map(v=>v===Math.max(...D.wRev)?BR:GOLD+'77'),borderRadius:3}]},defO());
+ mkChart('cH2','line',{labels:D.hrs,datasets:[{data:D.hCnt,borderColor:BR,backgroundColor:BR+'18',borderWidth:2,pointRadius:2,pointBackgroundColor:BR,fill:true,tension:0.4}]},defO());
+ mkChart('cS','doughnut',{labels:['Positif','Neutre','Négatif'],datasets:[{data:[9,2,1],backgroundColor:[POS,NEU,NEG],borderWidth:2,borderColor:'transparent'}]},{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'62%'});
+ mkChart('cPred','line',{labels:D.months,datasets:[{label:'Réel 2024',data:D.mRev,borderColor:NEU,borderWidth:1.5,pointRadius:0,borderDash:[4,3]},{label:'Prévu 2025',data:D.pred,borderColor:BR,backgroundColor:BR+'15',borderWidth:2,pointRadius:2,pointBackgroundColor:BR,fill:true,tension:0.4}]},{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:TC,font:{size:9},boxWidth:8,padding:10}}},scales:{x:{grid:{color:GR},ticks:{color:TC,font:{size:9}}},y:{grid:{color:GR},ticks:{color:TC,font:{size:9},callback:v=>v>=1000?(v/1000).toFixed(0)+'K€':v}}}});
+ mkChart('cPr2','bar',{labels:D.prods,datasets:[{data:D.pCnt.map(v=>Math.round(v/12*3*1.08)),backgroundColor:GOLD+'99',borderRadius:3}]},{...defO(true),indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:GR},ticks:{color:TC,font:{size:9}}},y:{grid:{display:false},ticks:{color:TC,font:{size:10}}}}});
+ mkChart('cVel','bar',{labels:D.prods,datasets:[{data:D.pCnt.map(v=>Math.round(v/12)),backgroundColor:D.pCnt.map(v=>v>600?NEG:v>300?BR:GOLD+'99'),borderRadius:3}]},defO());
+}
+
+const PAGES={
+ dash:{ti:'Dashboard Overview',su:'3 547 transactions · Jan–Déc 2024'},
+ analytics:{ti:'Ventes & IA Analytics',su:'Analyse complète par produit, jour et heure'},
+ sentiment:{ti:'Sentiment NLP',su:'Analyse des avis clients · Modèle FR'},
+ predict:{ti:'Prédictions IA',su:'Random Forest · Forecasting 2025'},
+ products:{ti:'Catalogue Produits',su:'8 produits actifs · Performance & KPIs'},
+ stocks:{ti:'Gestion des Stocks',su:'Vélocité de vente · Réapprovisionnement'}
+};
+
+document.querySelectorAll('.ni').forEach(n=>{
+ n.addEventListener('click',()=>{
+  const k=n.dataset.pg;
+  document.querySelectorAll('.ni').forEach(x=>x.classList.remove('on'));
+  n.classList.add('on');
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.getElementById('pg-'+k).classList.add('on');
+  document.getElementById('ti').textContent=PAGES[k].ti;
+  document.getElementById('su').textContent=PAGES[k].su;
+ });
+});
+
+buildTopBars();buildTOD('tod1');buildSentSummary('snt1');
+buildReviews();buildSent2();buildPredList();buildProducts();buildStocks();
+initCharts();
+</script>
